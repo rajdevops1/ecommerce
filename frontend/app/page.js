@@ -1,20 +1,9 @@
-export const dynamic = 'force-dynamic';
-
 async function getProducts() {
-  try {
-    const res = await fetch('http://backend:8080/api/products', {
-      cache: 'no-store'
-    });
+  const res = await fetch('http://localhost:8080/api/products', {
+    cache: 'no-store'
+  });
 
-    if (!res.ok) {
-      return [];
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+  return res.json();
 }
 
 export default async function Home() {
@@ -73,7 +62,9 @@ export default async function Home() {
               <strong>Stock:</strong> {product.quantity}
             </p>
 
-            <button>Add to Cart</button>
+            <button>
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
