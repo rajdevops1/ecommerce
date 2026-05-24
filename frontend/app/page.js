@@ -43,8 +43,8 @@ export default async function Home() {
             <img
               src={product.imageUrl}
               alt={product.name}
-              width=\"100%\"
-              height=\"250\"
+              width="100%"
+              height="250"
             />
 
             <h2>{product.name}</h2>
