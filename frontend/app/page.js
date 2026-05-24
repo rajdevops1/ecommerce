@@ -1,16 +1,40 @@
-async function getProducts() {
-  const res = await fetch('http://localhost:8080/api/products', {
-    cache: 'no-store'
-  });
+'use client';
 
-  return res.json();
-}
+import { useEffect, useState } from 'react';
 
-export default async function Home() {
-  const products = await getProducts();
+export default function Home() {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+
+    async function loadProducts() {
+
+      try {
+
+        const response = await fetch(
+          'http://localhost:8080/api/products'
+        );
+
+        const data = await response.json();
+
+        setProducts(data);
+
+      } catch (error) {
+
+        console.error('Error loading products:', error);
+
+      }
+    }
+
+    loadProducts();
+
+  }, []);
 
   return (
+
     <div style={{ padding: '20px' }}>
+
       <h1>Fashion Store</h1>
 
       <div
@@ -20,7 +44,9 @@ export default async function Home() {
           gap: '20px'
         }}
       >
+
         {products.map((product) => (
+
           <div
             key={product.id}
             style={{
@@ -29,6 +55,7 @@ export default async function Home() {
               borderRadius: '10px'
             }}
           >
+
             <img
               src={product.imageUrl}
               alt={product.name}
@@ -65,9 +92,14 @@ export default async function Home() {
             <button>
               Add to Cart
             </button>
+
           </div>
+
         ))}
+
       </div>
+
     </div>
+
   );
 }
